@@ -1,0 +1,53 @@
+@import './fonts.css';
+@import 'vue-select/dist/vue-select.css';
+
+:root {
+  --font-family: 'Causten', sans-serif;
+  --second-family: 'Core Sans C', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#app {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
