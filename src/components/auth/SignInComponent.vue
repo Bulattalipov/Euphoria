@@ -80,7 +80,12 @@ signInWithEmailAndPassword(getAuth(), email.value, password.value)
   position: relative;
   width: 100%;
   min-height: 100vh;
-  border-top: 1px solid #bebcbd;
+
+  &--reset {
+    .auth__form {
+      margin-top: 30px;
+    }
+  }
 
   &__img {
     position: absolute;

@@ -1,5 +1,6 @@
 @import './fonts.css';
 @import 'vue-select/dist/vue-select.css';
+@import '@vueform/slider/themes/default.css';
 
 :root {
   --font-family: 'Causten', sans-serif;
@@ -19,6 +20,11 @@ ol {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -50,4 +56,12 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(0 0 0 0);
 }

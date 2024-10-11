@@ -1,10 +1,17 @@
 <script setup></script>
 
 <template>
+  <router-view name="header"></router-view>
   <router-view></router-view>
+  <router-view name="footer"></router-view>
 </template>
 
-<style scoped>
+<style>
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .logo {
   height: 6em;
   padding: 1.5em;

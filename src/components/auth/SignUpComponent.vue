@@ -15,8 +15,25 @@ const checkSubc = ref(false);
 const checkSubcRed = ref(false);
 const loading = ref(false);
 
-function register() {
+function formIsValid() {
+  let isValid = false;
+
   if (checkAgree.value || checkSubc.value) {
+  } else {
+    if (!checkAgree.value) {
+      checkAgreeRed.value = true;
+    }
+
+    if (!checkSubc.value) {
+      checkSubcRed.value = true;
+    }
+  }
+
+  return isValid;
+}
+
+function register() {
+  if (formIsValid) {
     loading.value = true;
 
     createUserWithEmailAndPassword(getAuth(), email.value, password.value)
@@ -53,14 +70,6 @@ function register() {
 
         loading.value = false;
       });
-  } else {
-    if (!checkAgree.value) {
-      checkAgreeRed.value = true;
-    }
-
-    if (!checkSubc.value) {
-      checkSubcRed.value = true;
-    }
   }
 }
 </script>

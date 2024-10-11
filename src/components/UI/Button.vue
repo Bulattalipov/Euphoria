@@ -1,4 +1,6 @@
 <script setup>
+import InlineSvg from 'vue-inline-svg';
+
 defineProps({
   img: String,
   purple: Boolean,
@@ -7,7 +9,7 @@ defineProps({
 
 <template>
   <button class="btn" :class="{ 'btn--purple': purple }">
-    <img v-if="img" class="btn__icon" :src="'/assets/img/' + img" alt="" />
+    <InlineSvg v-if="img" class="btn__icon" :src="'/assets/img/' + img" alt=""></InlineSvg>
     <div class="btn__text"><slot></slot></div>
   </button>
 </template>
@@ -32,6 +34,12 @@ defineProps({
     background-color: #8a33fd;
     color: #fff;
     border: none;
+  }
+
+  &__icon {
+    path {
+      stroke: #fff;
+    }
   }
 }
 </style>

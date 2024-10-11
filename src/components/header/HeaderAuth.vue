@@ -25,8 +25,8 @@ const addClassActive = (e) => {
           <img class="header__logo-img" src="/assets/img/Logo.svg" alt="" />
         </router-link>
         <div class="header__search" @click="addClassActive($event)">
-          <input class="header__search-input" type="text" placeholder="Search" />
           <InlineSvg class="header__search-icon" src="../../assets/img/search.svg"></InlineSvg>
+          <input class="header__search-input" type="text" placeholder="Search" />
         </div>
         <v-select v-model="selectElm" :options="['English (united States)', 'Russia']"></v-select>
         <div class="header__links">
@@ -50,6 +50,7 @@ const addClassActive = (e) => {
 <style lang="scss">
 .header {
   padding: 34px 0 31px;
+  border-bottom: 1px solid #bebcbd;
 
   &__inner {
     display: flex;
