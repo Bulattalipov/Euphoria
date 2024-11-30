@@ -1,7 +1,8 @@
 <script setup>
 import InlineSvg from 'vue-inline-svg';
+
 defineProps({
-  forTheСatalog: Boolean,
+  forTheCatalog: Boolean,
 });
 </script>
 
@@ -9,7 +10,7 @@ defineProps({
   <div class="card">
     <div class="card__img">
       <img class="card__img-elem" src="/assets/img/categories-for-men/men-1.jpg" alt="" />
-      <div v-if="forTheСatalog" class="card__favorite-btn">
+      <div v-if="forTheCatalog" class="card__favorite-btn">
         <InlineSvg src="../../assets/img/heart.svg" />
       </div>
     </div>
@@ -18,7 +19,7 @@ defineProps({
         <div class="card__name">Shirts</div>
         <div class="card__desc">Explore Now!</div>
       </div>
-      <a v-if="!forTheСatalog" class="card__link" href="#">
+      <a v-if="!forTheCatalog" class="card__link" href="#">
         <InlineSvg src="../../assets/img/arrow-right.svg" />
       </a>
       <div v-else class="card__price">$123.00</div>

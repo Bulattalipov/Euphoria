@@ -10,7 +10,7 @@ import Button from './UI/Button.vue';
       The page you are looking for might have been removed or temporarily unavailable.
     </div>
     <RouterLink to="/">
-      <Button purple>Back to HomePage</Button>
+      <Button color="purple">Back to HomePage</Button>
     </RouterLink>
   </div>
 </template>

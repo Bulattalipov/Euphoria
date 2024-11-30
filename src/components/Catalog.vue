@@ -114,7 +114,11 @@ const toggleContent = function (e) {
           </div>
         </div>
         <div class="catalog__list">
-          <Card v-for="item in Array.from(Array(4).keys())" :key="item" for-the-catalog=""></Card>
+          <Card
+            v-for="item in Array.from(Array(4).keys())"
+            :key="item"
+            :for-the-catalog="true"
+          ></Card>
         </div>
       </div>
     </div>

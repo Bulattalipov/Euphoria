@@ -1,0 +1,52 @@
+<script setup></script>
+
+<template>
+  <div class="breadcrumbs">
+    <div class="container">
+      <div class="breadcrumbs__inner">
+        <router-link to="/" class="breadcrumbs__item">Home</router-link>
+        <router-link to="/cart" class="breadcrumbs__item">Add To Cart</router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.breadcrumbs {
+  margin: 50px 0;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__item {
+    position: relative;
+    color: #807d7e;
+    margin-right: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -15px;
+      transform: translateY(-50%);
+      background-image: url("data:image/svg+xml,%3Csvg width='5' height='12' viewBox='0 0 5 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.157568 10.9358C-0.0436482 10.7467 -0.0534543 10.4302 0.135666 10.229L3.92592 6.19633C4.02469 6.09124 4.02469 5.90878 3.92592 5.8037L0.135667 1.77102C-0.0534536 1.5698 -0.0436474 1.25337 0.157569 1.06425C0.358786 0.875128 0.675216 0.884934 0.864336 1.08615L4.65459 5.11883C5.11514 5.60883 5.11514 6.39119 4.65459 6.88119L0.864336 10.9139C0.675215 11.1151 0.358785 11.1249 0.157568 10.9358Z' fill='%23807D7E' /%3E%3C/svg%3E");
+      width: 5px;
+      height: 12px;
+    }
+
+    &:last-child {
+      &::before {
+        display: none;
+      }
+    }
+
+    &.router-link-active {
+      color: #3c4242;
+      cursor: default;
+    }
+  }
+}
+</style>

@@ -1,6 +1,29 @@
 <script setup>
 import Input from '../UI/Input.vue';
 import Button from '../UI/Button.vue';
+import { ref } from 'vue';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+
+const email = ref({
+  text: '',
+  errorCode: '',
+  errorMessage: '',
+});
+
+const auth = getAuth();
+
+const sendEmail = () => {
+  sendPasswordResetEmail(auth, email.value.text)
+    .then((data) => {
+      console.log(data);
+      email.value.text = '';
+      alert('Проверьте вашу почту');
+    })
+    .catch((error) => {
+      errorCode = error.code;
+      errorMessage = error.message;
+    });
+};
 </script>
 
 <template>
@@ -15,9 +38,15 @@ import Button from '../UI/Button.vue';
           Enter your email and we'll send you a link to reset your password.
         </div>
         <div class="auth__desc">Please check it.</div>
-        <form class="auth__form" @submit.prevent="">
-          <Input type="text" text="Email Address" errorMess v-model:input-value="email" />
-          <Button :purple="true">Send</Button>
+        <form class="auth__form" @submit.prevent="sendEmail">
+          <Input
+            type="text"
+            text="Email Address"
+            :errorMess="email.errorMessage"
+            :errorMessNotRed="true"
+            v-model:input-value="email.text"
+          />
+          <Button color="purple">Send</Button>
           <div class="auth__not-account">
             Back to
             <router-link class="auth__not-accoun-link" to="/signin">Login</router-link>

@@ -4,46 +4,68 @@ import Input from '../UI/Input.vue';
 import Checkbox from '../UI/Checkbox.vue';
 import { ref } from 'vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref as dbRef, child, get } from 'firebase/database';
 
-const email = ref('');
-const password = ref('');
-const errorEmail = ref('');
-const errorPassword = ref('Use 8 or more characters with a mix of letters, numbers & symbols');
-const checkAgree = ref(false);
-const checkAgreeRed = ref(false);
-const checkSubc = ref(false);
-const checkSubcRed = ref(false);
-const loading = ref(false);
+const formData = ref({
+  email: '',
+  password: '',
+  errorEmail: '',
+  errorPassword: 'Use 8 or more characters with a mix of letters, numbers & symbols',
+  checkAgree: false,
+  checkAgreeRed: false,
+  checkSubc: false,
+  checkSubcRed: false,
+  loading: false,
+});
 
 function formIsValid() {
-  let isValid = false;
+  let isValid = true;
 
-  if (checkAgree.value || checkSubc.value) {
+  if (formData.value.checkAgree || formData.value.checkSubc) {
   } else {
-    if (!checkAgree.value) {
-      checkAgreeRed.value = true;
+    if (!formData.value.checkAgree) {
+      formData.value.checkAgreeRed = true;
+      isValid = false;
     }
 
-    if (!checkSubc.value) {
-      checkSubcRed.value = true;
+    if (!formData.value.checkSubc) {
+      formData.value.checkSubcRed = true;
+      isValid = false;
     }
   }
 
   return isValid;
 }
 
-function register() {
-  if (formIsValid) {
-    loading.value = true;
+function funReg() {
+  const dbRefTotal = dbRef(getDatabase());
+  get(child(dbRefTotal, 'user/'))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+funReg();
 
-    createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+function register() {
+  if (formIsValid()) {
+    formData.value.loading = true;
+
+    createUserWithEmailAndPassword(getAuth(), formData.value.email, formData.value.password)
       .then((data) => {
-        email.value = '';
-        password.value = '';
-        checkAgree.value = false;
-        checkSubc.value = false;
-        checkAgreeRed.value = false;
-        checkSubcRed.value = false;
+        console.log(data.user.accessToken);
+        formData.email = '';
+        formData.password = '';
+        formData.checkAgree = false;
+        formData.checkSubc = false;
+        formData.checkAgreeRed = false;
+        formData.checkSubcRed = false;
 
         localStorage.setItem('authToken', JSON.stringify(data.user.accessToken));
 
@@ -52,23 +74,23 @@ function register() {
       .catch((error) => {
         switch (error.code) {
           case 'auth/email-already-in-use':
-            errorEmail.value = 'Email already in use';
+            formData.value.errorEmail = 'Email already in use';
             break;
           case 'auth/invalid-email':
-            errorEmail.value = 'Invalid-email';
+            formData.value.errorEmail = 'Invalid-email';
             break;
           case 'auth/operation-not-allowed':
-            errorMess.value = 'Operation not allowed';
+            formData.value.errorMess = 'Operation not allowed';
             break;
           case 'auth/weak-password':
-            errorMess.value = 'Weak password';
+            formData.value.errorMess = 'Weak password';
             break;
           default:
-            errorMess.value = '';
+            formData.value.errorMess = '';
             break;
         }
 
-        loading.value = false;
+        formData.value.loading = false;
       });
   }
 }
@@ -94,27 +116,27 @@ function register() {
           <Input
             type="text"
             text="Email Address"
-            :errorMess="errorEmail"
-            v-model:input-value="email"
+            :errorMess="formData.errorEmail"
+            v-model:input-value="formData.email"
           />
           <Input
             type="password"
             text="Password"
-            :errorMess="errorPassword"
+            :errorMess="formData.errorPassword"
             :errorMessNotRed="true"
             :eye-hide="true"
-            v-model:input-value="password"
+            v-model:input-value="formData.password"
           />
           <div class="auth__checkboxs">
-            <Checkbox v-model:checked="checkAgree" :checkRed="checkAgreeRed"
+            <Checkbox v-model:checked="formData.checkAgree" :checkRed="formData.checkAgreeRed"
               >Agree to our <a class="simple-link" href="#">Terms of use</a> and
               <a class="simple-link" href="#">Privacy Policy</a>
             </Checkbox>
-            <Checkbox v-model:checked="checkSubc" :checkRed="checkSubcRed"
+            <Checkbox v-model:checked="formData.checkSubc" :checkRed="formData.checkSubcRed"
               >Subscribe to our monthly newsletter</Checkbox
             >
           </div>
-          <Button :purple="true">Sign Up</Button>
+          <Button color="purple">Sign Up</Button>
           <div class="auth__not-account">
             Already have an account?
             <router-link class="auth__not-accoun-link" to="/signin">Log in</router-link>

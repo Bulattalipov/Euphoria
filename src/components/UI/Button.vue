@@ -1,17 +1,37 @@
 <script setup>
+import { computed } from 'vue';
 import InlineSvg from 'vue-inline-svg';
 
-defineProps({
+const props = defineProps({
   img: String,
-  purple: Boolean,
+  color: {
+    type: String,
+    required: false,
+    default: '',
+    validator: (value) => {
+      return ['purple', 'white', ''].includes(value);
+    },
+  },
+  tag: {
+    type: String,
+    default: 'button',
+    required: false,
+    validator: (value) => {
+      return ['button', 'div'].includes(value);
+    },
+  },
+});
+
+const buttonClass = computed(() => {
+  return props.color ? `btn--${props.color}` : '';
 });
 </script>
 
 <template>
-  <button class="btn" :class="{ 'btn--purple': purple }">
+  <component :is="tag" class="btn" :class="buttonClass">
     <InlineSvg v-if="img" class="btn__icon" :src="'/assets/img/' + img" alt=""></InlineSvg>
     <div class="btn__text"><slot></slot></div>
-  </button>
+  </component>
 </template>
 
 <style scoped lang="scss">
@@ -33,6 +53,12 @@ defineProps({
   &--purple {
     background-color: #8a33fd;
     color: #fff;
+    border: none;
+  }
+
+  &--white {
+    background-color: #fff;
+    color: #000;
     border: none;
   }
 

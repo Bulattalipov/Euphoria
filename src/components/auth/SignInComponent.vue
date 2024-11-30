@@ -3,40 +3,46 @@ import { ref } from 'vue';
 import Button from '../UI/Button.vue';
 import Input from '../UI/Input.vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import router from '../../router';
 
-const email = ref('');
-const password = ref('');
-const errorMess = ref('');
+const formData = ref({
+  email: '',
+  password: '',
+  errorMess: '',
+});
 
-signInWithEmailAndPassword(getAuth(), email.value, password.value)
-  .then((data) => {
-    email.value = '';
-    password.value = '';
+function signIn() {
+  signInWithEmailAndPassword(getAuth(), formData.value.email, formData.value.password)
+    .then((data) => {
+      formData.value.email = '';
+      formData.value.password = '';
 
-    localStorage.setItem('authToken', JSON.stringify(data.user.accessToken));
-  })
-  .catch((error) => {
-    switch (error.code) {
-      case 'auth/invalid-email':
-        errorMess.value = 'Invalid email';
-        break;
-      case 'auth/user-disabled':
-        errorMess.value = 'User disabled';
-        break;
-      case 'auth/invalid-credential':
-        errorMess.value = 'Invalid credential';
-        break;
-      case 'auth/user-not-found':
-        errorMess.value = 'User not found';
-        break;
-      case 'auth/wrong-password':
-        errorMess.value = 'Wrong password';
-        break;
-      default:
-        errorMess.value = '';
-        break;
-    }
-  });
+      localStorage.setItem('authToken', JSON.stringify(data.user.accessToken));
+      router.push('/');
+    })
+    .catch((error) => {
+      switch (error.code) {
+        case 'auth/invalid-email':
+          formData.value.errorMess = 'Invalid email';
+          break;
+        case 'auth/user-disabled':
+          formData.value.errorMess = 'User disabled';
+          break;
+        case 'auth/invalid-credential':
+          formData.value.errorMess = 'Invalid credential';
+          break;
+        case 'auth/user-not-found':
+          formData.value.errorMess = 'User not found';
+          break;
+        case 'auth/wrong-password':
+          formData.value.errorMess = 'Wrong password';
+          break;
+        default:
+          formData.value.errorMess = '';
+          break;
+      }
+    });
+}
 </script>
 
 <template>
@@ -54,17 +60,22 @@ signInWithEmailAndPassword(getAuth(), email.value, password.value)
         <div class="auth__lines-and-text">
           <span>OR</span>
         </div>
-        <form class="auth__form" @submit.prevent="signInWithEmailAndPassword">
-          <Input type="text" text="Email Address" errorMess v-model:input-value="email" />
+        <form class="auth__form" @submit.prevent="signIn">
+          <Input
+            type="text"
+            text="Email Address"
+            :errorMess="formData.errorMess"
+            v-model:input-value="formData.email"
+          />
           <Input
             type="password"
             text="Password"
             errorMess
             :eye-hide="true"
             :resetPassword="true"
-            v-model:input-value="password"
+            v-model:input-value="formData.password"
           />
-          <Button :purple="true">Sign In</Button>
+          <Button color="purple">Sign In</Button>
           <div class="auth__not-account">
             Don’t have an account?
             <router-link class="auth__not-accoun-link" to="/signup">Sign Up </router-link>

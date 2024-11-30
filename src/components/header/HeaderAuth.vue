@@ -31,10 +31,10 @@ const addClassActive = (e) => {
         <v-select v-model="selectElm" :options="['English (united States)', 'Russia']"></v-select>
         <div class="header__links">
           <router-link to="/signin">
-            <Button>Login</Button>
+            <Button tag="div">Login</Button>
           </router-link>
           <router-link to="/signup">
-            <Button>Sign Up</Button>
+            <Button tag="div">Sign Up</Button>
           </router-link>
         </div>
         <div class="header__burger" :class="{ active: burgerActive }" @click="activetionBurger">

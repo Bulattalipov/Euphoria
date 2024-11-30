@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
+import Button from '../UI/Button.vue';
 </script>
 
 <template>
@@ -16,7 +17,7 @@ import { Pagination } from 'swiper/modules';
               <div class="intro__catigories">T-shirt / Tops</div>
               <div class="intro__title">Summer Value Pack</div>
               <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
-              <a class="intro__btn" href="#">Shop Now</a>
+              <Button tag="div" color="white">Shop Now</Button>
             </div>
           </div>
         </div>
@@ -29,7 +30,7 @@ import { Pagination } from 'swiper/modules';
               <div class="intro__catigories">T-shirt / Tops</div>
               <div class="intro__title">Summer Value Pack</div>
               <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
-              <a class="intro__btn" href="#">Shop Now</a>
+              <Button tag="div" color="white">Shop Now</Button>
             </div>
           </div>
         </div>
@@ -41,6 +42,10 @@ import { Pagination } from 'swiper/modules';
 <style lang="scss">
 .intro {
   height: calc(100vh - 115px);
+
+  @media screen and (max-height: 670px) {
+    height: 670px;
+  }
 
   .swiper {
     width: 100%;

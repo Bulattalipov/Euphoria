@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import Button from '../UI/Button.vue';
+</script>
 
 <template>
   <div class="advantage">
@@ -10,7 +12,7 @@
             In our journey to improve everyday fashion, euphoria presents EVERYDAY wear range -
             Comfortable & Affordable fashion 24/7
           </div>
-          <a class="btn" href="#">Shop Now</a>
+          <Button tag="div" color="white">Shop Now</Button>
         </div>
         <div class="advantage__right" style="background-image: url('assets/img/people.jpg')"></div>
       </div>
@@ -40,6 +42,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
     padding: 74px;
   }
 

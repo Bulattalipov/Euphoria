@@ -17,7 +17,7 @@ import Button from '../UI/Button.vue';
         <form class="auth__form" @submit.prevent="">
           <Input type="password" text="Password" errorMess v-model:input-value="email" />
           <Input type="password" text="Confirm Password" errorMess v-model:input-value="email" />
-          <Button :purple="true">Reset Password</Button>
+          <Button color="purple">Reset Password</Button>
         </form>
       </div>
     </div>

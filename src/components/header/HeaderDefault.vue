@@ -33,13 +33,13 @@ const navList = ref([
           <input class="header__search-input" type="text" placeholder="Search" />
         </div>
         <div class="header__links">
-          <router-link to="/" class="header__link">
+          <router-link to="/wishlist" class="header__link">
             <InlineSvg class="header__link-icon" src="../../assets/img/heart.svg"></InlineSvg>
           </router-link>
-          <router-link to="/" class="header__link">
+          <router-link to="/account" class="header__link">
             <InlineSvg class="header__link-icon" src="../../assets/img/user.svg"></InlineSvg>
           </router-link>
-          <router-link to="/" class="header__link">
+          <router-link to="/cart" class="header__link">
             <InlineSvg
               class="header__link-icon"
               src="../../assets/img/shopping-cart.svg"
@@ -51,7 +51,7 @@ const navList = ref([
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .nav {
   margin-left: 60px;
 
@@ -98,6 +98,16 @@ const navList = ref([
     border-radius: 8px;
     padding: 12px;
     background: #f6f6f6;
+
+    &.router-link-exact-active {
+      background: #8a33fd;
+
+      .header__link-icon {
+        path {
+          stroke: #fff;
+        }
+      }
+    }
   }
 
   &__link-icon {
