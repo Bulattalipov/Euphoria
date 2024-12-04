@@ -210,7 +210,27 @@ import Button from '../components/UI/Button.vue';
   }
 
   &__total-box {
-    background: #f3f3f3;
+    background: #e4e3e3;
+
+    .btn {
+      margin: 20px;
+    }
+  }
+
+  &__total-box-contain {
+    padding: 20px;
+    border-bottom: 1px solid #000;
+  }
+
+  &__total-box-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    &--strong {
+      margin-top: 20px;
+      font-weight: 700;
+    }
   }
 }
 </style>
