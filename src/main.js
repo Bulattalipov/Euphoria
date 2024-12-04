@@ -7,6 +7,7 @@ import router from './router'
 import {
   initializeApp
 } from "firebase/app";
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOFWKvd1QN8lFE2tzRW6cIbQZ2N4AJSCc",
@@ -19,6 +20,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const appFirebase = initializeApp(firebaseConfig);
+export const database = getDatabase(appFirebase);
 
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).use(appFirebase).mount('#app');

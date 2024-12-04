@@ -4,7 +4,7 @@ import Input from '../UI/Input.vue';
 import Checkbox from '../UI/Checkbox.vue';
 import { ref } from 'vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref as dbRef, child, get } from 'firebase/database';
+import { database } from '../../main';
 
 const formData = ref({
   email: '',
@@ -36,22 +36,6 @@ function formIsValid() {
 
   return isValid;
 }
-
-function funReg() {
-  const dbRefTotal = dbRef(getDatabase());
-  get(child(dbRefTotal, 'user/'))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log('No data available');
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-funReg();
 
 function register() {
   if (formIsValid()) {

@@ -71,7 +71,23 @@ import Button from '../components/UI/Button.vue';
               >Continue Shopping</router-link
             >
           </div>
-          <div class="cart__total-box">ewfhewhbguiebw</div>
+          <div class="cart__total-box">
+            <div class="cart__total-box-contain">
+              <div class="cart__total-box-row">
+                <div class="cart__total-box-title">Sub Total</div>
+                <div class="cart__total-box-price">$513.00</div>
+              </div>
+              <div class="cart__total-box-row">
+                <div class="cart__total-box-title">Sub Total</div>
+                <div class="cart__total-box-price">$513.00</div>
+              </div>
+              <div class="cart__total-box-row cart__total-box-row--strong">
+                <div class="cart__total-box-title">Grand Total</div>
+                <div class="cart__total-box-price">$518.00</div>
+              </div>
+            </div>
+            <Button color="purple">Proceed To Checkout</Button>
+          </div>
         </div>
       </div>
     </div>
