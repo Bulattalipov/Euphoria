@@ -3,122 +3,90 @@ import {
   createWebHistory
 } from "vue-router";
 import Home from "../views/Home.vue";
-import SignUpComponent from "../components/auth/SignUpComponent.vue";
-import SignInComponent from "../components/auth/SignInComponent.vue";
-import ResetPasswordComponent from "../components/auth/ResetPasswordComponent.vue";
-import CreateNewPasswordComponent from "../components/auth/CreateNewPasswordComponent.vue";
-import ErrorBlock from "../components/ErrorBlock.vue";
-import Catalog from "../components/Catalog.vue";
-import Product from "../components/Product.vue";
-import AuthLayout from "../components/layouts/AuthLayout.vue";
+import SignUp from "../views/SignUp.vue";
+import SignIn from "../views/SignIn.vue";
+import ResetPassword from "../views/ResetPassword.vue";
+import CreateNewPassword from "../views/CreateNewPassword.vue";
+import ErrorPage from "../views/ErrorPage.vue";
+import Catalog from "../views/Catalog.vue";
+import Product from "../views/Product.vue";
 import DefaultLayout from "../components/layouts/DefaultLayout.vue";
 import Cart from "../views/Cart.vue";
 import CheckOut from "../views/CheckOut.vue";
+import Wishlist from "../views/Wishlist.vue";
 
 const routes = [{
     path: '/',
-    component: DefaultLayout,
-    children: [{
-      path: '',
-      name: 'home',
-      component: Home
-    }],
+    name: 'home',
+    component: Home,
     meta: {
       auth: true
     },
   },
   {
     path: '/signin',
-    component: AuthLayout,
-    children: [{
-        path: '',
-        name: 'signIn',
-        component: SignInComponent
-      }]
+    name: 'signIn',
+    component: SignIn
   },
   {
     path: '/signup',
-    component: AuthLayout,
-    children: [{
-        path: '',
-        name: 'signUp',
-        component: SignUpComponent
-      }]
+    name: 'signUp',
+    component: SignUp,
   },
   {
     path: '/reset-password',
-    component: AuthLayout,
-    children: [{
-        path: '',
-        name: 'resetPassword',
-        component: ResetPasswordComponent
-      }]
+    name: 'resetPassword',
+    component: ResetPassword,
   },
   {
     path: '/create-new-password',
-    component: AuthLayout,
-    children: [{
-        path: '',
-        name: 'createNewPassword',
-        component: CreateNewPasswordComponent
-      }]
+    name: 'createNewPassword',
+    component: CreateNewPassword,
   },
   {
     path: '/:pathMatch(.*)*',
-    component: DefaultLayout,
-    children: [{
-        path: '',
-        name: 'errorPage',
-        component: ErrorBlock
-    }],
+    name: 'errorPage',
+    component: ErrorPage,
     meta: {
       auth: true
     },
   },
   {
     path: '/catalog',
-    component: DefaultLayout,
-    children: [{
-      path: '',
-      name: 'catalog',
-      component: Catalog
-    }],
+    name: 'catalog',
+    component: Catalog,
     meta: {
       auth: true
     },
   },
   {
     path: '/product',
-    component: DefaultLayout,
-    children: [{
-      path: '',
-      name: 'product',
-      component: Product
-    }],
+    name: 'product',
+    component: Product,
     meta: {
       auth: true
     },
   },
   {
     path: '/cart',
-    component: DefaultLayout,
-    children: [{
-      path: '',
-      name: 'cart',
-      component: Cart
-    }],
+    name: 'cart',
+    component: Cart,
     meta: {
       auth: true
     },
   },
   {
     path: '/check-out',
-    component: DefaultLayout,
-    children: [{
-      path: '',
-      name: 'check-out',
-      component: CheckOut
-    }],
+    name: 'check-out',
+    component: CheckOut,
+    meta: {
+      auth: true
+    },
+  },
+  {
+    path: '/wishlist',
+    name: 'wishlist',
+    component: Wishlist,
     meta: {
       auth: true
     },

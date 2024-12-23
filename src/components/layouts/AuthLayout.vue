@@ -4,7 +4,7 @@ import HeaderAuth from '../header/HeaderAuth.vue';
 
 <template>
   <HeaderAuth></HeaderAuth>
-  <router-view></router-view>
+  <slot></slot>
 </template>
 
 <style scoped lang="scss"></style>

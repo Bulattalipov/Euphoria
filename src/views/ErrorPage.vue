@@ -1,18 +1,21 @@
 <script setup>
-import Button from './UI/Button.vue';
+import Button from '../components/UI/Button.vue';
+import DefaultLayout from '../components/layouts/DefaultLayout.vue';
 </script>
 
 <template>
-  <div class="error-block">
-    <img class="error-block__img" src="/assets/img/error-404.png" alt="" />
-    <div class="error-block__title">Oops! Page not found</div>
-    <div class="error-block__desc">
-      The page you are looking for might have been removed or temporarily unavailable.
+  <DefaultLayout>
+    <div class="error-block">
+      <img class="error-block__img" src="/assets/img/error-404.png" alt="" />
+      <div class="error-block__title">Oops! Page not found</div>
+      <div class="error-block__desc">
+        The page you are looking for might have been removed or temporarily unavailable.
+      </div>
+      <RouterLink to="/">
+        <Button color="purple">Back to HomePage</Button>
+      </RouterLink>
     </div>
-    <RouterLink to="/">
-      <Button color="purple">Back to HomePage</Button>
-    </RouterLink>
-  </div>
+  </DefaultLayout>
 </template>
 
 <style scoped lang="scss">

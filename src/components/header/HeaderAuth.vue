@@ -28,7 +28,11 @@ const addClassActive = (e) => {
           <InlineSvg class="header__search-icon" src="../../assets/img/search.svg"></InlineSvg>
           <input class="header__search-input" type="text" placeholder="Search" />
         </div>
-        <v-select v-model="selectElm" :options="['English (united States)', 'Russia']"></v-select>
+        <v-select
+          v-model="selectElm"
+          :options="['English (united States)', 'Russia']"
+          :searchable="false"
+        ></v-select>
         <div class="header__links">
           <router-link to="/signin">
             <Button tag="div">Login</Button>

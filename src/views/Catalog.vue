@@ -1,8 +1,9 @@
 <script setup>
 import InlineSvg from 'vue-inline-svg';
-import Card from './home/Card.vue';
+import Card from '../components/home/Card.vue';
 import { ref } from 'vue';
 import Slider from '@vueform/slider';
+import DefaultLayout from '../components/layouts/DefaultLayout.vue';
 
 const valueSlider = ref([70, 600]);
 
@@ -42,87 +43,97 @@ const toggleContent = function (e) {
 </script>
 
 <template>
-  <div class="catalog">
-    <div class="container">
-      <div class="catalog__inner">
-        <div class="catalog__filter">
-          <div class="catalog__filter-top">
-            <div class="catalog__filter-top-text">Filter</div>
-            <InlineSvg class="catalog__filter-top-icon" src="../../assets/img/filter.svg" />
-          </div>
-          <div class="catalog__filter-categories">
-            <div v-for="item in categories" :key="item" class="catalog__filter-categories-item">
-              <div class="catalog__filter-categories-item-name">{{ item }}</div>
-              <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+  <DefaultLayout>
+    <div class="catalog">
+      <div class="container">
+        <div class="catalog__inner">
+          <div class="catalog__filter">
+            <div class="catalog__filter-top">
+              <div class="catalog__filter-top-text">Filter</div>
+              <InlineSvg class="catalog__filter-top-icon" src="../../assets/img/filter.svg" />
             </div>
-          </div>
-          <div class="catalog__filter-item catalog__filter-item--price">
-            <div class="catalog__filter-item-btn" @click="toggleContent">
-              <div class="catalog__filter-item-btn-name">Price</div>
-              <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+            <div class="catalog__filter-categories">
+              <div v-for="item in categories" :key="item" class="catalog__filter-categories-item">
+                <div class="catalog__filter-categories-item-name">{{ item }}</div>
+                <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+              </div>
             </div>
-            <div class="catalog__filter-item-content">
-              <div class="catalog__filter-item-content-inner">
-                <Slider
-                  class="catalog__filter-item-slider"
-                  :min="20"
-                  :max="1000"
-                  v-model="valueSlider"
-                />
-                <div class="catalog__filter-item-inputs">
-                  <input class="catalog__filter-item-input" v-model="valueSlider[0]" type="text" />
-                  <input class="catalog__filter-item-input" v-model="valueSlider[1]" type="text" />
+            <div class="catalog__filter-item catalog__filter-item--price">
+              <div class="catalog__filter-item-btn" @click="toggleContent">
+                <div class="catalog__filter-item-btn-name">Price</div>
+                <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+              </div>
+              <div class="catalog__filter-item-content">
+                <div class="catalog__filter-item-content-inner">
+                  <Slider
+                    class="catalog__filter-item-slider"
+                    :min="20"
+                    :max="1000"
+                    v-model="valueSlider"
+                  />
+                  <div class="catalog__filter-item-inputs">
+                    <input
+                      class="catalog__filter-item-input"
+                      v-model="valueSlider[0]"
+                      type="text"
+                    />
+                    <input
+                      class="catalog__filter-item-input"
+                      v-model="valueSlider[1]"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="catalog__filter-item catalog__filter-item--color">
+              <div class="catalog__filter-item-btn" @click="toggleContent">
+                <div class="catalog__filter-item-btn-name">Colors</div>
+                <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+              </div>
+              <div class="catalog__filter-item-content">
+                <div class="catalog__filter-item-content-inner">
+                  <div class="catalog__filter-item-colors">
+                    <label v-for="item in colors" :key="item" class="catalog__filter-item-color">
+                      <input class="visually-hidden" type="checkbox" />
+                      <div
+                        class="catalog__filter-item-color-box"
+                        :style="`background-color: ${item.toUpperCase()}`"
+                      ></div>
+                      <div class="catalog__filter-item-color-text">{{ item }}</div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="catalog__filter-item catalog__filter-item--size">
+              <div class="catalog__filter-item-btn" @click="toggleContent">
+                <div class="catalog__filter-item-btn-name">Size</div>
+                <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
+              </div>
+              <div class="catalog__filter-item-content">
+                <div class="catalog__filter-item-content-inner">
+                  <div class="catalog__filter-item-sizes">
+                    <label v-for="item in sizes" :key="item" class="catalog__filter-item-size">
+                      <input class="visually-hidden" type="checkbox" />
+                      <div class="catalog__filter-item-size-box">{{ item }}</div>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="catalog__filter-item catalog__filter-item--color">
-            <div class="catalog__filter-item-btn" @click="toggleContent">
-              <div class="catalog__filter-item-btn-name">Colors</div>
-              <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
-            </div>
-            <div class="catalog__filter-item-content">
-              <div class="catalog__filter-item-content-inner">
-                <div class="catalog__filter-item-colors">
-                  <label v-for="item in colors" :key="item" class="catalog__filter-item-color">
-                    <input class="visually-hidden" type="checkbox" />
-                    <div
-                      class="catalog__filter-item-color-box"
-                      :style="`background-color: ${item.toUpperCase()}`"
-                    ></div>
-                    <div class="catalog__filter-item-color-text">{{ item }}</div>
-                  </label>
-                </div>
-              </div>
-            </div>
+          <div class="catalog__list">
+            <Card
+              v-for="item in Array.from(Array(4).keys())"
+              :key="item"
+              :for-the-catalog="true"
+            ></Card>
           </div>
-          <div class="catalog__filter-item catalog__filter-item--size">
-            <div class="catalog__filter-item-btn" @click="toggleContent">
-              <div class="catalog__filter-item-btn-name">Size</div>
-              <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
-            </div>
-            <div class="catalog__filter-item-content">
-              <div class="catalog__filter-item-content-inner">
-                <div class="catalog__filter-item-sizes">
-                  <label v-for="item in sizes" :key="item" class="catalog__filter-item-size">
-                    <input class="visually-hidden" type="checkbox" />
-                    <div class="catalog__filter-item-size-box">{{ item }}</div>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="catalog__list">
-          <Card
-            v-for="item in Array.from(Array(4).keys())"
-            :key="item"
-            :for-the-catalog="true"
-          ></Card>
         </div>
       </div>
     </div>
-  </div>
+  </DefaultLayout>
 </template>
 
 <style lang="scss">

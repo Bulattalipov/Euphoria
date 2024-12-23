@@ -1,5 +1,7 @@
 <script setup>
 import { defineEmits } from 'vue';
+import vSelect from 'vue-select';
+import { ref } from 'vue';
 defineProps({
   text: {
     type: String,
@@ -15,11 +17,21 @@ defineProps({
     type: String,
     required: true,
   },
+  placeholder: {
+    type: String,
+  },
+  newDesign: {
+    type: Boolean,
+  },
   eyeHide: Boolean,
   resetPassword: Boolean,
   inputValue: [String, Number],
+  select: {
+    type: Boolean,
+  },
 });
 
+const selectElm = ref('English (united States)');
 const emit = defineEmits(['update:inputValue']);
 
 const showPassword = (e) => {
@@ -41,13 +53,23 @@ const showPassword = (e) => {
       </div>
     </div>
     <input
+      v-if="!select"
       class="input__elem"
+      :class="{ 'input__elem--new-design': newDesign }"
       :type="type"
       ref="input"
       :autocomplete="type === 'password' ? 'current-password' : ''"
       @input="emit('update:inputValue', $event.target.value)"
       :value="inputValue"
+      :placeholder="placeholder"
     />
+    <v-select
+      v-else
+      v-model="selectElm"
+      :options="['English (united States)', 'Russia']"
+      :searchable="false"
+      class="input__select"
+    ></v-select>
     <div class="input__contain">
       <div
         v-if="errorMess"
@@ -63,7 +85,7 @@ const showPassword = (e) => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .input {
   &__box {
     display: flex;
@@ -86,6 +108,20 @@ const showPassword = (e) => {
     padding: 18px 20px;
     font-size: 14px;
     color: #807d7e;
+
+    &--new-design {
+      padding: 16px 20px;
+      background-color: #f6f6f6;
+      border: none;
+    }
+  }
+
+  &__select {
+    .vs__dropdown-toggle {
+      min-height: 48px;
+      padding: 9px 20px;
+      background-color: #f6f6f6;
+    }
   }
 
   &__error {

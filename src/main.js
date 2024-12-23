@@ -8,6 +8,7 @@ import {
   initializeApp
 } from "firebase/app";
 import { getDatabase } from 'firebase/database';
+import { createPinia } from 'pinia';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOFWKvd1QN8lFE2tzRW6cIbQZ2N4AJSCc",
@@ -23,4 +24,6 @@ const firebaseConfig = {
 const appFirebase = initializeApp(firebaseConfig);
 export const database = getDatabase(appFirebase);
 
-createApp(App).use(router).use(appFirebase).mount('#app');
+const pinia = createPinia();
+
+createApp(App).use(router).use(pinia).use(appFirebase).mount('#app');
