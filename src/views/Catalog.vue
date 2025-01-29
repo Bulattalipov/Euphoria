@@ -1,9 +1,15 @@
 <script setup>
 import InlineSvg from 'vue-inline-svg';
 import Card from '../components/home/Card.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Slider from '@vueform/slider';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { reactive } from 'vue';
+
+const db = getFirestore();
+const colRefColors = collection(db, 'colors');
+const colRefSizes = collection(db, 'sizes');
 
 const valueSlider = ref([70, 600]);
 
@@ -19,22 +25,37 @@ const categories = ref([
   'Jeans',
 ]);
 
-const colors = ref([
-  'Purple',
-  'Black',
-  'Red',
-  'Orange',
-  'Navy',
-  'White',
-  'Brown',
-  'Green',
-  'Yellow',
-  'Grey',
-  'Pink',
-  'Blue',
-]);
+const colors = reactive([]);
+const sizes = reactive([]);
 
-const sizes = ref(['XXS', 'XL', 'XS', 'S', 'M', 'L', 'XXL', '3XL', '4XL']);
+function getColors() {
+  getDocs(colRefColors)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        colors.push({ id: doc.id, ...doc.data() });
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+function getSizes() {
+  getDocs(colRefSizes)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        sizes.push({ id: doc.id, ...doc.data() });
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+onMounted(() => {
+  getColors();
+  getSizes();
+});
 
 const toggleContent = function (e) {
   const parent = e.target.closest('.catalog__filter-item');
@@ -94,13 +115,13 @@ const toggleContent = function (e) {
               <div class="catalog__filter-item-content">
                 <div class="catalog__filter-item-content-inner">
                   <div class="catalog__filter-item-colors">
-                    <label v-for="item in colors" :key="item" class="catalog__filter-item-color">
-                      <input class="visually-hidden" type="checkbox" />
+                    <label v-for="item in colors" :key="item.id" class="catalog__filter-item-color">
+                      <input class="visually-hidden" type="checkbox" :value="item.color" />
                       <div
                         class="catalog__filter-item-color-box"
-                        :style="`background-color: ${item.toUpperCase()}`"
+                        :style="`background-color: ${item.color.toUpperCase()}`"
                       ></div>
-                      <div class="catalog__filter-item-color-text">{{ item }}</div>
+                      <div class="catalog__filter-item-color-text">{{ item.color }}</div>
                     </label>
                   </div>
                 </div>
@@ -114,9 +135,9 @@ const toggleContent = function (e) {
               <div class="catalog__filter-item-content">
                 <div class="catalog__filter-item-content-inner">
                   <div class="catalog__filter-item-sizes">
-                    <label v-for="item in sizes" :key="item" class="catalog__filter-item-size">
-                      <input class="visually-hidden" type="checkbox" />
-                      <div class="catalog__filter-item-size-box">{{ item }}</div>
+                    <label v-for="item in sizes" :key="item.id" class="catalog__filter-item-size">
+                      <input class="visually-hidden" type="checkbox" :value="item.size" />
+                      <div class="catalog__filter-item-size-box">{{ item.size }}</div>
                     </label>
                   </div>
                 </div>
@@ -223,6 +244,7 @@ const toggleContent = function (e) {
     padding: 20px 30px;
     border-top: 1px solid #bebcbd;
     border-bottom: 1px solid #bebcbd;
+    cursor: pointer;
 
     svg {
       transform: rotate(-90deg);
@@ -282,6 +304,10 @@ const toggleContent = function (e) {
     }
   }
 
+  &__filter-item-color {
+    cursor: pointer;
+  }
+
   &__filter-item-color-box {
     border-radius: 12px;
     width: 36px;
@@ -291,6 +317,7 @@ const toggleContent = function (e) {
   }
 
   &__filter-item-color-text {
+    user-select: none;
   }
 
   &__filter-item-sizes {
@@ -316,6 +343,7 @@ const toggleContent = function (e) {
     font-size: 14px;
     color: #3c4242;
     text-align: center;
+    cursor: pointer;
   }
 
   &__list {
