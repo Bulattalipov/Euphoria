@@ -17,7 +17,9 @@ import Button from '../UI/Button.vue';
               <div class="intro__catigories">T-shirt / Tops</div>
               <div class="intro__title">Summer Value Pack</div>
               <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
-              <Button tag="div" color="white">Shop Now</Button>
+              <router-link to="/catalog">
+                <Button tag="div" color="white">Shop Now</Button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -30,7 +32,9 @@ import Button from '../UI/Button.vue';
               <div class="intro__catigories">T-shirt / Tops</div>
               <div class="intro__title">Summer Value Pack</div>
               <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
-              <Button tag="div" color="white">Shop Now</Button>
+              <router-link to="/catalog">
+                <Button tag="div" color="white">Shop Now</Button>
+              </router-link>
             </div>
           </div>
         </div>

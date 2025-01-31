@@ -5,6 +5,12 @@ defineProps({
   forTheCatalog: Boolean,
   cardItem: {
     type: Object,
+    default() {
+      return {
+        url_img: '', 
+        category: 'text'
+      }
+    }
   },
 });
 </script>
@@ -22,9 +28,9 @@ defineProps({
         <div class="card__name">{{ cardItem.category }}</div>
         <div class="card__desc">Explore Now!</div>
       </div>
-      <a v-if="!forTheCatalog" class="card__link" href="#">
+      <router-link v-if="!forTheCatalog" class="card__link" to="#">
         <InlineSvg src="../../assets/img/arrow-right.svg" />
-      </a>
+      </router-link>
       <div v-else class="card__price">$123.00</div>
     </div>
   </div>
@@ -32,9 +38,16 @@ defineProps({
 
 <style scoped lang="scss">
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  &:hover {
+    .card__img-elem {
+      transform: scale(1.1);
+    } 
+  }
 
   &__img {
     position: relative;
@@ -50,6 +63,7 @@ defineProps({
     height: 100%;
     object-fit: cover;
     object-position: top center;
+    transition: transform 0.4s ease;
   }
 
   &__favorite-btn {
@@ -111,6 +125,17 @@ defineProps({
     line-height: 123%;
     letter-spacing: -0.04em;
     color: #7f7f7f;
+  }
+
+  &__link {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__price {

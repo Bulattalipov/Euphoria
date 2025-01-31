@@ -4,25 +4,26 @@ import Card from '../components/home/Card.vue';
 import { onMounted, ref } from 'vue';
 import Slider from '@vueform/slider';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { reactive } from 'vue';
 
 const db = getFirestore();
 const colRefColors = collection(db, 'colors');
+// const q = query(colRefColors, where("color", "==", "Purple"));
+
 const colRefSizes = collection(db, 'sizes');
 
 const valueSlider = ref([70, 600]);
 
 const categories = ref([
-  'Top',
-  'Printed T-shirts',
-  'Plain T-shirts',
-  'Kurti',
-  'Boxers',
-  'Full sleeve T-shirts',
-  'Joggers',
-  'Payjamas',
+  'Shirts',
   'Jeans',
+  'Knitwear',
+  'Trousers',
+  'Blazers',
+  'Shorts',
+  'Bathrobes',
+  'Socks',
 ]);
 
 const colors = reactive([]);

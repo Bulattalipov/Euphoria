@@ -15,9 +15,15 @@ const getCategoriesWomen = getDBStore.getCategoriesWomen;
 const categoriesMenData = getDBStore.categoriesMenData;
 const getCategoriesMen = getDBStore.getCategoriesMen;
 
+
+
 onMounted(() => {
-  getCategoriesWomen();
-  getCategoriesMen();
+  if(categoriesWomenData.length === 0) {
+    getCategoriesWomen();
+  }
+  if(categoriesMenData.length === 0) {
+    getCategoriesMen();
+  }
 });
 </script>
 

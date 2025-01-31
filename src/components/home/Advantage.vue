@@ -12,7 +12,9 @@ import Button from '../UI/Button.vue';
             In our journey to improve everyday fashion, euphoria presents EVERYDAY wear range -
             Comfortable & Affordable fashion 24/7
           </div>
-          <Button tag="div" color="white">Shop Now</Button>
+          <router-link to="/catalog">
+            <Button tag="div" color="white">Shop Now</Button>
+          </router-link>
         </div>
         <div class="advantage__right" style="background-image: url('assets/img/people.jpg')"></div>
       </div>
