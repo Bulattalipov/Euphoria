@@ -3,20 +3,23 @@ import InlineSvg from 'vue-inline-svg';
 
 defineProps({
   forTheCatalog: Boolean,
+  cardItem: {
+    type: Object,
+  },
 });
 </script>
 
 <template>
   <div class="card">
     <div class="card__img">
-      <img class="card__img-elem" src="/assets/img/categories-for-men/men-1.jpg" alt="" />
+      <img class="card__img-elem" :src="cardItem.url_img" alt="" />
       <div v-if="forTheCatalog" class="card__favorite-btn">
         <InlineSvg src="../../assets/img/heart.svg" />
       </div>
     </div>
     <div class="card__contain">
       <div class="card__box">
-        <div class="card__name">Shirts</div>
+        <div class="card__name">{{ cardItem.category }}</div>
         <div class="card__desc">Explore Now!</div>
       </div>
       <a v-if="!forTheCatalog" class="card__link" href="#">
