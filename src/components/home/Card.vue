@@ -7,10 +7,10 @@ defineProps({
     type: Object,
     default() {
       return {
-        url_img: '', 
-        category: 'text'
-      }
-    }
+        url_img: '',
+        category: 'text',
+      };
+    },
   },
 });
 </script>
@@ -25,13 +25,13 @@ defineProps({
     </div>
     <div class="card__contain">
       <div class="card__box">
-        <div class="card__name">{{ cardItem.category }}</div>
+        <div class="card__name">{{ cardItem.name }}</div>
         <div class="card__desc">Explore Now!</div>
       </div>
       <router-link v-if="!forTheCatalog" class="card__link" to="#">
         <InlineSvg src="../../assets/img/arrow-right.svg" />
       </router-link>
-      <div v-else class="card__price">$123.00</div>
+      <div v-else class="card__price">${{ cardItem.price }}</div>
     </div>
   </div>
 </template>
@@ -46,7 +46,7 @@ defineProps({
   &:hover {
     .card__img-elem {
       transform: scale(1.1);
-    } 
+    }
   }
 
   &__img {
@@ -105,17 +105,19 @@ defineProps({
 
   &__contain {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    gap: 10px;
   }
 
   &__name {
     font-family: var(--font-family);
     font-weight: 700;
     font-size: 17px;
-    line-height: 156%;
+    line-height: 120%;
     letter-spacing: -0.04em;
     color: #2a2f2f;
+    margin-bottom: 10px;
   }
 
   &__desc {

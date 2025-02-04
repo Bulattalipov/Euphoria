@@ -4,7 +4,7 @@ import Card from '../components/home/Card.vue';
 import { onMounted, ref } from 'vue';
 import Slider from '@vueform/slider';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
-import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
 import { reactive } from 'vue';
 
 const db = getFirestore();
@@ -12,8 +12,9 @@ const colRefColors = collection(db, 'colors');
 // const q = query(colRefColors, where("color", "==", "Purple"));
 
 const colRefSizes = collection(db, 'sizes');
+const colRefCatalog = collection(db, 'catalog');
 
-const valueSlider = ref([70, 600]);
+const valueSlider = ref([6, 104]);
 
 const categories = ref([
   'Shirts',
@@ -28,6 +29,7 @@ const categories = ref([
 
 const colors = reactive([]);
 const sizes = reactive([]);
+const catalog = reactive([]);
 
 function getColors() {
   getDocs(colRefColors)
@@ -53,9 +55,38 @@ function getSizes() {
     });
 }
 
+function getCatalog() {
+  getDocs(colRefCatalog)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        catalog.push({ id: doc.id, ...doc.data() });
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+async function setCatalog() {
+  try {
+    await setDoc(doc(db, 'catalog', 'catalog_id_24'), {
+      category: 'Socks',
+      name: 'TT kids basic socks 3pcs',
+      url_img: 'https://cdn.tom-tailor.com/img/1654_2200/9203_-__-__-_0001_S610_7.jpg',
+      price: '7.99',
+      colors: ['White', 'Black', 'Crey'],
+      sizes: ['S', 'M'],
+    });
+    console.log('Данные успешно отправлены на Firebase');
+  } catch (error) {
+    console.error('Ошибка при отправке данных на Firebase:', error);
+  }
+}
+
 onMounted(() => {
   getColors();
   getSizes();
+  getCatalog();
 });
 
 const toggleContent = function (e) {
@@ -67,6 +98,7 @@ const toggleContent = function (e) {
 <template>
   <DefaultLayout>
     <div class="catalog">
+      <button @click="setCatalog">Set Data</button>
       <div class="container">
         <div class="catalog__inner">
           <div class="catalog__filter">
@@ -80,7 +112,7 @@ const toggleContent = function (e) {
                 <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
               </div>
             </div>
-            <div class="catalog__filter-item catalog__filter-item--price">
+            <div class="catalog__filter-item catalog__filter-item--price active">
               <div class="catalog__filter-item-btn" @click="toggleContent">
                 <div class="catalog__filter-item-btn-name">Price</div>
                 <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
@@ -89,8 +121,8 @@ const toggleContent = function (e) {
                 <div class="catalog__filter-item-content-inner">
                   <Slider
                     class="catalog__filter-item-slider"
-                    :min="20"
-                    :max="1000"
+                    :min="6"
+                    :max="104"
                     v-model="valueSlider"
                   />
                   <div class="catalog__filter-item-inputs">
@@ -108,7 +140,7 @@ const toggleContent = function (e) {
                 </div>
               </div>
             </div>
-            <div class="catalog__filter-item catalog__filter-item--color">
+            <div class="catalog__filter-item catalog__filter-item--color active">
               <div class="catalog__filter-item-btn" @click="toggleContent">
                 <div class="catalog__filter-item-btn-name">Colors</div>
                 <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
@@ -128,7 +160,7 @@ const toggleContent = function (e) {
                 </div>
               </div>
             </div>
-            <div class="catalog__filter-item catalog__filter-item--size">
+            <div class="catalog__filter-item catalog__filter-item--size active">
               <div class="catalog__filter-item-btn" @click="toggleContent">
                 <div class="catalog__filter-item-btn-name">Size</div>
                 <InlineSvg src="../../assets/img/arrow-right-2.svg"></InlineSvg>
@@ -145,11 +177,13 @@ const toggleContent = function (e) {
               </div>
             </div>
           </div>
+          {{ catalog.length }}
           <div class="catalog__list">
             <Card
-              v-for="item in Array.from(Array(4).keys())"
-              :key="item"
+              v-for="item in catalog"
+              :key="item.id"
               :for-the-catalog="true"
+              :card-item="item"
             ></Card>
           </div>
         </div>

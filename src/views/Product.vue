@@ -41,15 +41,21 @@ const setSecondSwiper = (swiper) => {
             :direction="'vertical'"
             class="mySwiper2"
           >
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg"/></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
+            /></swiper-slide>
           </swiper>
           <swiper
             @swiper="setSecondSwiper"
@@ -61,18 +67,24 @@ const setSecondSwiper = (swiper) => {
             :watchSlidesProgress="true"
             class="mySwiper"
           >
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide>
-            <swiper-slide><img src="https://swiperjs.com/demos/images/nature-10.jpg"/></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
+            /></swiper-slide>
+            <swiper-slide
+              ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
+            /></swiper-slide>
           </swiper>
         </div>
-        <div class="product__info">
+        <form class="product__info">
           <div class="product__title">Raven Hoodie With Black colored Design</div>
           <div class="product__size">
             <div class="product__size-title">Select Size</div>
@@ -162,7 +174,7 @@ const setSecondSwiper = (swiper) => {
               <div class="product__service-text">Free Shipping & Returns</div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
     <ProductDescription></ProductDescription>
