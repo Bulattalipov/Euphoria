@@ -2,13 +2,13 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import Button from '../UI/Button.vue';
 </script>
 
 <template>
   <div class="intro">
-    <Swiper :pagination="{ clickable: true }" :modules="[Pagination]" class="mySwiper">
+    <Swiper :pagination="{ clickable: true }" :modules="[Pagination, Autoplay, EffectFade]"  :autoplay="{ delay: 3500, disableOnInteraction: false }" :fadeEffect="{crossFade: true}" class="mySwiper">
       <SwiperSlide>
         <div class="intro__slide">
           <img class="intro__slide-img" src="/assets/img/shop-hero-1-product-slide-1.jpg" alt="" />
@@ -26,7 +26,7 @@ import Button from '../UI/Button.vue';
       </SwiperSlide>
       <SwiperSlide>
         <div class="intro__slide">
-          <img class="intro__slide-img" src="/assets/img/shop-hero-1-product-slide-1.jpg" alt="" />
+          <img class="intro__slide-img" src="/assets/img/shop-hero-2-product-slide-2.jpg" alt="" />
           <div class="intro__wrapper">
             <div class="intro__inner">
               <div class="intro__catigories">T-shirt / Tops</div>

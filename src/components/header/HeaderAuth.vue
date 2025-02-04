@@ -23,10 +23,10 @@ const addClassActive = (e) => {
         <router-link to="/" class="header__logo">
           <img class="header__logo-img" src="/assets/img/Logo.svg" alt="" />
         </router-link>
-        <div class="header__search" @click="addClassActive($event)">
+        <!-- <div class="header__search" @click="addClassActive($event)">
           <InlineSvg class="header__search-icon" src="../../assets/img/search.svg"></InlineSvg>
           <input class="header__search-input" type="text" placeholder="Search" />
-        </div>
+        </div> -->
         <div class="header__links">
           <router-link to="/signin">
             <Button tag="div">Login</Button>

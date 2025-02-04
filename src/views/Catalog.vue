@@ -69,8 +69,8 @@ function getCatalog() {
 
 async function setCatalog() {
   try {
-    await setDoc(doc(db, 'catalog', 'catalog_id_24'), {
-      category: 'Socks',
+    await setDoc(doc(db, 'catalog', 'catalog_id_25'), {
+      category: 'Jeans',
       name: 'TT kids basic socks 3pcs',
       url_img: 'https://cdn.tom-tailor.com/img/1654_2200/9203_-__-__-_0001_S610_7.jpg',
       price: '7.99',
@@ -184,6 +184,7 @@ const toggleContent = function (e) {
               :key="item.id"
               :for-the-catalog="true"
               :card-item="item"
+              :link="item.name"
             ></Card>
           </div>
         </div>

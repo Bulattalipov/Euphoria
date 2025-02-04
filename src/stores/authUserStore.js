@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import router from '../router';
+import { useRouter } from "vue-router";
 
 export const useAuthUserStore = defineStore("authUserStore", () => {
   const formDataSignIn = ref({
@@ -21,6 +22,8 @@ export const useAuthUserStore = defineStore("authUserStore", () => {
     checkSubcRed: false,
     loading: false,
   });
+
+  const router = useRouter();
 
   function signIn() {
     signInWithEmailAndPassword(getAuth(), formDataSignIn.value.email, formDataSignIn.value.password)
@@ -116,10 +119,21 @@ export const useAuthUserStore = defineStore("authUserStore", () => {
     }
   }
 
+  function logOut() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      localStorage.removeItem('authToken', '');
+      router.push({name: 'signIn'});
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   return {
     formDataSignIn,
     formDataSignUp,
     signIn,
     register,
+    logOut
   }
 });

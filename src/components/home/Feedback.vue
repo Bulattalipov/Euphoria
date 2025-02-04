@@ -26,7 +26,26 @@ const props = defineProps({
           :modules="[Pagination]"
           class="mySwiper"
         >
-          <SwiperSlide v-for="item in numberSlides" :key="item">
+          <SwiperSlide>
+            <div class="feedback__item">
+              <div class="feedback__item-box">
+                <img class="feedback__item-img" src="/assets/img/people-1.jpg" alt="" />
+                <StarRating :rating="2.2"></StarRating>
+              </div>
+              <div class="feedback__item-title">Darryl Jones</div>
+              <div class="feedback__item-text">
+                <p>
+                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
+                  officia consequat duis enim velit mollit.
+                </p>
+                <p>
+                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit
+                  mollit. Exercitation veniam consequat sunt nostrud amet.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
             <div class="feedback__item">
               <div class="feedback__item-box">
                 <img class="feedback__item-img" src="/assets/img/people-2.jpg" alt="" />
@@ -42,6 +61,24 @@ const props = defineProps({
                   Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
                   ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit
                   mollit. Exercitation veniam consequat sunt nostrud amet.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div class="feedback__item">
+              <div class="feedback__item-box">
+                <img class="feedback__item-img" src="/assets/img/people-3.jpg" alt="" />
+                <StarRating :rating="4"></StarRating>
+              </div>
+              <div class="feedback__item-title">Terry Rodriguez</div>
+              <div class="feedback__item-text">
+                <p>
+                  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
+                  officia consequat duis enim velit mollit.
+                </p>
+                <p>
+                  Exercitation veniam consequat sunt nostrud amet.
                 </p>
               </div>
             </div>

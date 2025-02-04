@@ -32,8 +32,8 @@ onMounted(() => {
     <Intro></Intro>
     <Banners></Banners>
     <Advantage></Advantage>
-    <Categories title="Categories For Men" :arrayData="categoriesMenData"></Categories>
-    <Categories title="Categories For Women" :arrayData="categoriesWomenData"></Categories>
+    <Categories id="men" title="Categories For Men" :arrayData="categoriesMenData"></Categories>
+    <Categories id="women" title="Categories For Women" :arrayData="categoriesWomenData"></Categories>
     <Brands></Brands>
     <Feedback></Feedback>
   </DefaultLayout>

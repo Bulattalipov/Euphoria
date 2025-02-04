@@ -13,12 +13,12 @@ import HeaderWithBorder from './UI/HeaderWithBorder.vue';
             Precisely stitched with no pilling & no fading. Provide all-time comfort. Anytime,
             anywhere. Infinite range of matte-finish HD prints.
           </div>
-          <table class="product-description__items">
+          <div class="product-description__items">
             <div v-for="item in new Array(6)" :key="item" class="product-description__item">
               <div class="product-description__item-name">Fabric</div>
               <div class="product-description__item-desc">Bio-washed Cotton</div>
             </div>
-          </table>
+          </div>
         </div>
         <div class="product-description__video">Видео отсутсвует</div>
       </div>

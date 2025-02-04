@@ -48,18 +48,27 @@ const buttonClass = computed(() => {
   text-align: center;
   color: #8a33fd;
   background-color: transparent;
+  transition: background-color 0.2s ease;
   cursor: pointer;
 
   &--purple {
     background-color: #8a33fd;
     color: #fff;
     border: none;
+
+    &:hover {
+      background-color: #750cff;
+    }
   }
 
   &--white {
     background-color: #fff;
     color: #000;
     border: none;
+
+    &:hover {
+      background-color: #ffffffcb;
+    }
   }
 
   &__icon {

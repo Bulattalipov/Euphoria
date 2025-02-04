@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, reactive, onBeforeMount } from 'vue';
 import Button from '../components/UI/Button.vue';
 import InlineSvg from 'vue-inline-svg';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -10,6 +10,8 @@ import 'swiper/css/thumbs';
 import { Controller } from 'swiper/modules';
 import ProductDescription from '../components/ProductDescription.vue';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
+import { useRoute } from 'vue-router';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 
 const firstSwiper = ref(null);
 const secondSwiper = ref(null);
@@ -19,6 +21,30 @@ const setFirstSwiper = (swiper) => {
 const setSecondSwiper = (swiper) => {
   secondSwiper.value = swiper;
 };
+
+const catalog = reactive([]);
+
+const db = getFirestore();
+const colRefCatalog = collection(db, 'catalog');
+const q = query(colRefCatalog, where("name", "==", useRoute().params.slug));
+
+function getProduct() {
+  getDocs(q)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        catalog.push({ id: doc.id, ...doc.data() });
+      });
+      console.log(catalog);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+onBeforeMount(() => {
+  getProduct()
+});
+
 </script>
 
 <template>
@@ -41,20 +67,8 @@ const setSecondSwiper = (swiper) => {
             :direction="'vertical'"
             class="mySwiper2"
           >
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
+            <swiper-slide v-for="item in new Array(4)"
+              ><img :src="catalog[0]?.url_img"
             /></swiper-slide>
           </swiper>
           <swiper
@@ -67,86 +81,37 @@ const setSecondSwiper = (swiper) => {
             :watchSlidesProgress="true"
             class="mySwiper"
           >
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-1.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-2.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-3.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-4.jpg"
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="https://swiperjs.com/demos/images/nature-5.jpg"
+            <swiper-slide v-for="item in new Array(4)"
+              ><img :src="catalog[0]?.url_img"
             /></swiper-slide>
           </swiper>
         </div>
         <form class="product__info">
-          <div class="product__title">Raven Hoodie With Black colored Design</div>
+          <div class="product__title">{{catalog[0]?.name}}</div>
           <div class="product__size">
             <div class="product__size-title">Select Size</div>
             <div class="product__size-list">
-              <label class="product__size-item">
+              <label v-for="size in catalog[0]?.sizes" class="product__size-item">
                 <input class="visually-hidden" checked type="radio" name="size" />
-                <div class="product__size-item-box">XS</div>
-              </label>
-              <label class="product__size-item">
-                <input class="visually-hidden" type="radio" name="size" />
-                <div class="product__size-item-box">S</div>
-              </label>
-              <label class="product__size-item">
-                <input class="visually-hidden" type="radio" name="size" />
-                <div class="product__size-item-box">M</div>
-              </label>
-              <label class="product__size-item">
-                <input class="visually-hidden" type="radio" name="size" />
-                <div class="product__size-item-box">L</div>
-              </label>
-              <label class="product__size-item">
-                <input class="visually-hidden" type="radio" name="size" />
-                <div class="product__size-item-box">XL</div>
+                <div class="product__size-item-box">{{size}}</div>
               </label>
             </div>
           </div>
           <div class="product__colours">
             <div class="product__colours-title">Colours Available</div>
             <div class="product__colours-list">
-              <label class="product__colours-item">
+              <label v-for="color in catalog[0]?.colors" class="product__colours-item">
                 <input class="visually-hidden" checked type="radio" name="colours" />
                 <div
                   class="product__colours-item-box"
-                  style="background-color: #3c4242; color: #3c4242"
-                ></div>
-              </label>
-              <label class="product__colours-item">
-                <input class="visually-hidden" type="radio" name="colours" />
-                <div
-                  class="product__colours-item-box"
-                  style="background-color: #edd146; color: #edd146"
-                ></div>
-              </label>
-              <label class="product__colours-item">
-                <input class="visually-hidden" type="radio" name="colours" />
-                <div
-                  class="product__colours-item-box"
-                  style="background-color: #eb84b0; color: #eb84b0"
-                ></div>
-              </label>
-              <label class="product__colours-item">
-                <input class="visually-hidden" type="radio" name="colours" />
-                <div
-                  class="product__colours-item-box"
-                  style="background-color: #9c1f35; color: #9c1f35"
+                  :style="{backgroundColor: color, color: color}"
                 ></div>
               </label>
             </div>
           </div>
           <div class="product__box">
             <Button color="purple" img="shopping-cart.svg">Add to cart</Button>
-            <div class="product__box-elem">$63.00</div>
+            <div class="product__box-elem">${{catalog[0]?.price}}</div>
           </div>
           <div class="product__services">
             <div class="product__service">

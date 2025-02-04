@@ -7,8 +7,11 @@ import InlineSvg from 'vue-inline-svg';
 import { ref } from 'vue';
 import Categories from '../components/home/Categories.vue';
 import Orders from '../components/Orders.vue';
+import { useAuthUserStore } from '../stores/authUserStore';
 
 const flag = ref(false);
+const authUserStore = useAuthUserStore();
+const logOut = authUserStore.logOut;
 </script>
 
 <template>
@@ -47,13 +50,13 @@ const flag = ref(false);
                   ></InlineSvg>
                   <div class="wishlist__menu-link-text">My info</div>
                 </router-link>
-                <router-link class="wishlist__menu-link" to="/">
+                <div class="wishlist__menu-link" @click="logOut">
                   <InlineSvg
                     class="wishlist__menu-link-icon"
                     src="/assets/img/wishlist/sign-out.svg"
                   ></InlineSvg>
                   <div class="wishlist__menu-link-text">Sign out</div>
-                </router-link>
+                </div>
               </li>
             </ul>
           </div>
@@ -91,7 +94,7 @@ const flag = ref(false);
                   You don’t have any products in the wishlist yet. You will find a lot of
                   interesting products on our Shop page.
                 </div>
-                <RouterLink to="/">
+                <RouterLink to="/catalog">
                   <Button color="purple">Continue Shopping</Button>
                 </RouterLink>
               </div>
@@ -175,6 +178,7 @@ const flag = ref(false);
     padding: 12px 12px 12px 37px;
     transform: background-color 0.3s;
     border-radius: 0 8px 8px 0;
+    cursor: pointer;
 
     &--active {
       border-left: 2px solid #3c4242;

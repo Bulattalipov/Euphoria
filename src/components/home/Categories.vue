@@ -18,7 +18,7 @@ const data = defineProps({
     <div class="container">
       <Title>{{ title }}</Title>
       <ul class="categories__list">
-        <Card v-for="item of arrayData" :key="item.id" :cardItem="item" />
+        <Card v-for="item of arrayData" :key="item.id" :cardItem="item" link="catalog"/>
       </ul>
     </div>
   </div>

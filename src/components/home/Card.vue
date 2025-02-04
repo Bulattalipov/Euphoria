@@ -12,6 +12,10 @@ defineProps({
       };
     },
   },
+  link: {
+    type: true,
+    default: '#'
+  }
 });
 </script>
 
@@ -28,10 +32,10 @@ defineProps({
         <div class="card__name">{{ cardItem.name }}</div>
         <div class="card__desc">Explore Now!</div>
       </div>
-      <router-link v-if="!forTheCatalog" class="card__link" to="#">
-        <InlineSvg src="../../assets/img/arrow-right.svg" />
+      <router-link class="card__link" :to="link === 'catalog' ? {name: 'catalog'} : {name: 'product', params: {slug: link}}">
+        <InlineSvg v-if="!forTheCatalog" src="../../assets/img/arrow-right.svg" />
+        <div v-else class="card__price">${{ cardItem.price }}</div>
       </router-link>
-      <div v-else class="card__price">${{ cardItem.price }}</div>
     </div>
   </div>
 </template>

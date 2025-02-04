@@ -60,7 +60,7 @@ const routes = [{
     },
   },
   {
-    path: '/product',
+    path: '/product/:slug',
     name: 'product',
     component: Product,
     meta: {

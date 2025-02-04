@@ -6,11 +6,9 @@ import InlineSvg from 'vue-inline-svg';
 const route = useRoute();
 
 const navList = ref([
-  { name: 'Shop', link: '/' },
-  { name: 'Men', link: 'men' },
-  { name: 'Women', link: 'women' },
-  { name: 'Combos', link: 'combos' },
-  { name: 'Joggers', link: 'joggers' },
+  { name: 'Shop', link: '/catalog' },
+  { name: 'Men', link: '#men' },
+  { name: 'Women', link: '#women' },
 ]);
 </script>
 
@@ -64,11 +62,16 @@ const navList = ref([
     font-weight: 500;
     font-size: 22px;
     color: #807d7e;
+    transition: color 0.2s;
 
-    &.router-link-active {
+    &:hover {
       color: #3c4242;
-      font-weight: 700;
     }
+
+    // &.router-link-active {
+    //   color: #3c4242;
+    //   font-weight: 700;
+    // }
   }
 }
 
@@ -86,6 +89,15 @@ const navList = ref([
     }
   }
 
+  &__search-input {
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: #d1d1d1;
+    }
+  }
+
   &__links {
     display: flex;
     gap: 12px;
@@ -98,6 +110,11 @@ const navList = ref([
     border-radius: 8px;
     padding: 12px;
     background: #f6f6f6;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #d1d1d1;
+    }
 
     &.router-link-exact-active {
       background: #8a33fd;
