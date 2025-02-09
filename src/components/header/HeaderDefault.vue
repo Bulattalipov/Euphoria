@@ -6,7 +6,7 @@ import InlineSvg from 'vue-inline-svg';
 const route = useRoute();
 
 const navList = ref([
-  { name: 'Shop', link: '/catalog' },
+  // { name: 'Shop', link: '/catalog' },
   { name: 'Men', link: '#men' },
   { name: 'Women', link: '#women' },
 ]);
@@ -19,7 +19,7 @@ const navList = ref([
         <router-link to="/" class="header__logo">
           <img class="header__logo-img" src="/assets/img/Logo.svg" alt="" />
         </router-link>
-        <nav v-if="route.name === 'home'" class="nav">
+        <nav v-if="route.name === 'home' || route.name === 'catalog'" class="nav">
           <ul class="nav__list">
             <li v-for="item in navList" :key="item" class="nav__item">
               <router-link :to="item.link" class="nav__item-link"> {{ item.name }} </router-link>
@@ -31,10 +31,10 @@ const navList = ref([
           <input class="header__search-input" type="text" placeholder="Search" />
         </div>
         <div class="header__links">
-          <router-link to="/wishlist" class="header__link">
+          <router-link to="/account/wishlist" class="header__link">
             <InlineSvg class="header__link-icon" src="../../assets/img/heart.svg"></InlineSvg>
           </router-link>
-          <router-link to="/account" class="header__link">
+          <router-link to="/account/account-info" class="header__link">
             <InlineSvg class="header__link-icon" src="../../assets/img/user.svg"></InlineSvg>
           </router-link>
           <router-link to="/cart" class="header__link">

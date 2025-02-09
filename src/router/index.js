@@ -10,10 +10,12 @@ import CreateNewPassword from "../views/CreateNewPassword.vue";
 import ErrorPage from "../views/ErrorPage.vue";
 import Catalog from "../views/Catalog.vue";
 import Product from "../views/Product.vue";
-import DefaultLayout from "../components/layouts/DefaultLayout.vue";
 import Cart from "../views/Cart.vue";
 import CheckOut from "../views/CheckOut.vue";
-import Wishlist from "../views/Wishlist.vue";
+import Account from "../views/Account.vue";
+import Wishlist from "../components/Wishlist.vue";
+import Orders from "../components/Orders.vue";
+import AccountInfo from "../components/AccountInfo.vue";
 
 const routes = [{
     path: '/',
@@ -84,9 +86,23 @@ const routes = [{
     },
   },
   {
-    path: '/wishlist',
-    name: 'wishlist',
-    component: Wishlist,
+    path: '/account',
+    name: 'Account',
+    component: Account,
+    children: [
+      {
+        path: 'wishlist',
+        component: Wishlist
+      },
+      {
+        path: 'order',
+        component: Orders
+      },
+      {
+        path: 'account-info',
+        component: AccountInfo
+      }
+    ],
     meta: {
       auth: true
     },

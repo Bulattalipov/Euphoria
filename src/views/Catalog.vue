@@ -12,7 +12,7 @@ const colRefColors = collection(db, 'colors');
 // const q = query(colRefColors, where("color", "==", "Purple"));
 
 const colRefSizes = collection(db, 'sizes');
-const colRefCatalog = collection(db, 'catalog');
+const colRefCatalog = collection(db, 'catalog_women');
 
 const valueSlider = ref([6, 104]);
 
@@ -61,6 +61,7 @@ function getCatalog() {
       snapshot.docs.forEach((doc) => {
         catalog.push({ id: doc.id, ...doc.data() });
       });
+      console.log(catalog);
     })
     .catch((err) => {
       console.log(err.message);
@@ -69,13 +70,13 @@ function getCatalog() {
 
 async function setCatalog() {
   try {
-    await setDoc(doc(db, 'catalog', 'catalog_id_25'), {
-      category: 'Jeans',
-      name: 'TT kids basic socks 3pcs',
-      url_img: 'https://cdn.tom-tailor.com/img/1654_2200/9203_-__-__-_0001_S610_7.jpg',
-      price: '7.99',
-      colors: ['White', 'Black', 'Crey'],
-      sizes: ['S', 'M'],
+    await setDoc(doc(db, 'catalog_women', 'catalog_women_id_13'), {
+      category: 'Shorts',
+      name: 'Alexa jeans Bermuda',
+      url_img: 'https://cdn.tom-tailor.com/img/1654_2200/1041016_10281_9.jpg',
+      price: '41.99',
+      colors: ['Black', 'Blue'],
+      sizes: ['S', 'M', 'L'],
     });
     console.log('Данные успешно отправлены на Firebase');
   } catch (error) {

@@ -5,7 +5,7 @@ import Button from '../components/UI/Button.vue';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
 import { ref } from 'vue';
 
-const flag = ref(false);
+const flag = ref(true);
 </script>
 
 <template>

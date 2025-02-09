@@ -8,13 +8,19 @@ import Button from '../UI/Button.vue';
 
 <template>
   <div class="intro">
-    <Swiper :pagination="{ clickable: true }" :modules="[Pagination, Autoplay, EffectFade]"  :autoplay="{ delay: 3500, disableOnInteraction: false }" :fadeEffect="{crossFade: true}" class="mySwiper">
+    <Swiper
+      :pagination="{ clickable: true }"
+      :modules="[Pagination, Autoplay, EffectFade]"
+      :autoplay="{ delay: 3500, disableOnInteraction: false }"
+      :fadeEffect="{ crossFade: true }"
+      class="mySwiper"
+    >
       <SwiperSlide>
         <div class="intro__slide">
           <img class="intro__slide-img" src="/assets/img/shop-hero-1-product-slide-1.jpg" alt="" />
           <div class="intro__wrapper">
             <div class="intro__inner">
-              <div class="intro__catigories">T-shirt / Tops</div>
+              <div class="intro__catigories">T-shirt</div>
               <div class="intro__title">Summer Value Pack</div>
               <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
               <router-link to="/catalog">
@@ -28,10 +34,10 @@ import Button from '../UI/Button.vue';
         <div class="intro__slide">
           <img class="intro__slide-img" src="/assets/img/shop-hero-2-product-slide-2.jpg" alt="" />
           <div class="intro__wrapper">
-            <div class="intro__inner">
-              <div class="intro__catigories">T-shirt / Tops</div>
-              <div class="intro__title">Summer Value Pack</div>
-              <div class="intro__catigories intro__catigories-2">cool / colorful / comfy</div>
+            <div class="intro__inner intro__inner--black-text">
+              <div class="intro__catigories">Blazers</div>
+              <div class="intro__title">Attrative appearance</div>
+              <div class="intro__catigories intro__catigories-2">cool / stylish</div>
               <router-link to="/catalog">
                 <Button tag="div" color="white">Shop Now</Button>
               </router-link>
@@ -127,6 +133,11 @@ import Button from '../UI/Button.vue';
     align-items: flex-start;
     gap: 40px;
     max-width: 440px;
+    color: #fff;
+
+    &--black-text {
+      color: #000;
+    }
   }
 
   &__catigories {
@@ -136,7 +147,6 @@ import Button from '../UI/Button.vue';
     line-height: 118%;
     letter-spacing: 0em;
     text-transform: capitalize;
-    color: #fff;
   }
 
   &__title {
@@ -145,7 +155,6 @@ import Button from '../UI/Button.vue';
     font-size: 78px;
     line-height: 120%;
     letter-spacing: 0em;
-    color: #fff;
     text-align: start;
   }
 
