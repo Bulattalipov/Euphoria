@@ -6,13 +6,12 @@ import Slider from '@vueform/slider';
 import DefaultLayout from '../components/layouts/DefaultLayout.vue';
 import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
 import { reactive } from 'vue';
+import { useGetDBStore } from '../stores/getDBStore';
+
+const getDBStore = useGetDBStore();
 
 const db = getFirestore();
-const colRefColors = collection(db, 'colors');
 // const q = query(colRefColors, where("color", "==", "Purple"));
-
-const colRefSizes = collection(db, 'sizes');
-const colRefCatalog = collection(db, 'catalog_women');
 
 const valueSlider = ref([6, 104]);
 
@@ -26,47 +25,6 @@ const categories = ref([
   'Bathrobes',
   'Socks',
 ]);
-
-const colors = reactive([]);
-const sizes = reactive([]);
-const catalog = reactive([]);
-
-function getColors() {
-  getDocs(colRefColors)
-    .then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        colors.push({ id: doc.id, ...doc.data() });
-      });
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
-
-function getSizes() {
-  getDocs(colRefSizes)
-    .then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        sizes.push({ id: doc.id, ...doc.data() });
-      });
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
-
-function getCatalog() {
-  getDocs(colRefCatalog)
-    .then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        catalog.push({ id: doc.id, ...doc.data() });
-      });
-      console.log(catalog);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
 
 async function setCatalog() {
   try {
@@ -85,9 +43,9 @@ async function setCatalog() {
 }
 
 onMounted(() => {
-  getColors();
-  getSizes();
-  getCatalog();
+  getDBStore.getColors();
+  getDBStore.getSizes();
+  getDBStore.getCatalog();
 });
 
 const toggleContent = function (e) {
@@ -149,7 +107,11 @@ const toggleContent = function (e) {
               <div class="catalog__filter-item-content">
                 <div class="catalog__filter-item-content-inner">
                   <div class="catalog__filter-item-colors">
-                    <label v-for="item in colors" :key="item.id" class="catalog__filter-item-color">
+                    <label
+                      v-for="item in getDBStore.colors"
+                      :key="item.id"
+                      class="catalog__filter-item-color"
+                    >
                       <input class="visually-hidden" type="checkbox" :value="item.color" />
                       <div
                         class="catalog__filter-item-color-box"
@@ -169,7 +131,11 @@ const toggleContent = function (e) {
               <div class="catalog__filter-item-content">
                 <div class="catalog__filter-item-content-inner">
                   <div class="catalog__filter-item-sizes">
-                    <label v-for="item in sizes" :key="item.id" class="catalog__filter-item-size">
+                    <label
+                      v-for="item in getDBStore.sizes"
+                      :key="item.id"
+                      class="catalog__filter-item-size"
+                    >
                       <input class="visually-hidden" type="checkbox" :value="item.size" />
                       <div class="catalog__filter-item-size-box">{{ item.size }}</div>
                     </label>
@@ -178,10 +144,10 @@ const toggleContent = function (e) {
               </div>
             </div>
           </div>
-          {{ catalog.length }}
+          {{ getDBStore.catalog.length }}
           <div class="catalog__list">
             <Card
-              v-for="item in catalog"
+              v-for="item in getDBStore.catalog"
               :key="item.id"
               :for-the-catalog="true"
               :card-item="item"

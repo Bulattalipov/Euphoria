@@ -15,13 +15,11 @@ const getCategoriesWomen = getDBStore.getCategoriesWomen;
 const categoriesMenData = getDBStore.categoriesMenData;
 const getCategoriesMen = getDBStore.getCategoriesMen;
 
-
-
 onMounted(() => {
-  if(categoriesWomenData.length === 0) {
+  if (categoriesWomenData.length === 0) {
     getCategoriesWomen();
   }
-  if(categoriesMenData.length === 0) {
+  if (categoriesMenData.length === 0) {
     getCategoriesMen();
   }
 });
@@ -33,7 +31,11 @@ onMounted(() => {
     <Banners></Banners>
     <Advantage></Advantage>
     <Categories id="men" title="Categories For Men" :arrayData="categoriesMenData"></Categories>
-    <Categories id="women" title="Categories For Women" :arrayData="categoriesWomenData"></Categories>
+    <Categories
+      id="women"
+      title="Categories For Women"
+      :arrayData="categoriesWomenData"
+    ></Categories>
     <Brands></Brands>
     <Feedback></Feedback>
   </DefaultLayout>

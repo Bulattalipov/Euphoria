@@ -26,7 +26,7 @@ const catalog = reactive([]);
 
 const db = getFirestore();
 const colRefCatalog = collection(db, 'catalog');
-const q = query(colRefCatalog, where("name", "==", useRoute().params.slug));
+const q = query(colRefCatalog, where('name', '==', useRoute().params.slug));
 
 function getProduct() {
   getDocs(q)
@@ -39,12 +39,11 @@ function getProduct() {
     .catch((err) => {
       console.log(err.message);
     });
-};
+}
 
 onBeforeMount(() => {
-  getProduct()
+  getProduct();
 });
-
 </script>
 
 <template>
@@ -87,13 +86,13 @@ onBeforeMount(() => {
           </swiper>
         </div>
         <form class="product__info">
-          <div class="product__title">{{catalog[0]?.name}}</div>
+          <div class="product__title">{{ catalog[0]?.name }}</div>
           <div class="product__size">
             <div class="product__size-title">Select Size</div>
             <div class="product__size-list">
               <label v-for="size in catalog[0]?.sizes" class="product__size-item">
                 <input class="visually-hidden" checked type="radio" name="size" />
-                <div class="product__size-item-box">{{size}}</div>
+                <div class="product__size-item-box">{{ size }}</div>
               </label>
             </div>
           </div>
@@ -104,14 +103,14 @@ onBeforeMount(() => {
                 <input class="visually-hidden" checked type="radio" name="colours" />
                 <div
                   class="product__colours-item-box"
-                  :style="{backgroundColor: color, color: color}"
+                  :style="{ backgroundColor: color, color: color }"
                 ></div>
               </label>
             </div>
           </div>
           <div class="product__box">
             <Button color="purple" img="shopping-cart.svg">Add to cart</Button>
-            <div class="product__box-elem">${{catalog[0]?.price}}</div>
+            <div class="product__box-elem">${{ catalog[0]?.price }}</div>
           </div>
           <div class="product__services">
             <div class="product__service">
